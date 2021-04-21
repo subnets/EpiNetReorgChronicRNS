@@ -1,0 +1,4 @@
+ {
+     "CORE": "/insert/path/to/raw/data/folder",
+     "REMOTE": "/insert/path/to/output/folder"
+  }
