@@ -9,6 +9,7 @@ Last Updated: 2021/04/21
 import glob
 import os
 import sys
+import json
 import datetime 
 from datetime import datetime
 import h5py
@@ -40,6 +41,10 @@ sns.set_style(
         'ytick.color': 'k'
     })
 
+# Load Paths
+json_name = 'paths.json'
+with open(json_name, 'r') as f:
+    _paths = json.load(f)
 
 ### Setup Paths
 def _rsrch_hook(e_id):
@@ -47,19 +52,17 @@ def _rsrch_hook(e_id):
     assert e_id < 100
     e_as_str = 'e{:03d}'.format(e_id)
 
-    base = HOME + '/Remotes/RSRCH.2018.SpikeControl/{}'.format(e_as_str)
+    base = _paths['REMOTE'] + '/{}'.format(e_as_str)
     os.makedirs(base, exist_ok=True)
     return base
 
-
 path = {}
-HOME = os.environ['HOTH']
 path['CORE'] = {'RNS': {}}
 path['RSRCH'] = _rsrch_hook
 
 ### Set paths
 # NeuroPace RNS
-CORE_RNS = HOME + '/Remotes/CORE.NeuroPace.vrao'
+CORE_RNS = _paths['CORE']
 path['CORE']['RNS'][
     'BASE'] = '{}/NeuroPace UCSF PDMS Data Transfer #PHI'.format(CORE_RNS)
 path['CORE']['RNS']['CATALOG'] = pd.read_csv(
