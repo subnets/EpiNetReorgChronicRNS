@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-DATA.CORE
-DATA.RSRCH
 *.DS_Store
-notebooks/figures/
-notebooks/cache/
 *.csv
 *.svg
 *.pdf
@@ -15,8 +10,6 @@ notebooks/cache/
 *.h5
 *.hdf
 
-=======
->>>>>>> 29b576efc4537ab9175b71b7917e6b9508e38626
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -39,11 +32,8 @@ parts/
 sdist/
 var/
 wheels/
-<<<<<<< HEAD
-=======
 pip-wheel-metadata/
 share/python-wheels/
->>>>>>> 29b576efc4537ab9175b71b7917e6b9508e38626
 *.egg-info/
 .installed.cfg
 *.egg
@@ -62,20 +52,14 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
-<<<<<<< HEAD
-=======
 .nox/
->>>>>>> 29b576efc4537ab9175b71b7917e6b9508e38626
 .coverage
 .coverage.*
 .cache
 nosetests.xml
 coverage.xml
 *.cover
-<<<<<<< HEAD
-=======
 *.py,cover
->>>>>>> 29b576efc4537ab9175b71b7917e6b9508e38626
 .hypothesis/
 .pytest_cache/
 
@@ -85,15 +69,11 @@ coverage.xml
 
 # Django stuff:
 *.log
-<<<<<<< HEAD
 .static_storage/
 .media/
 local_settings.py
-=======
-local_settings.py
 db.sqlite3
 db.sqlite3-journal
->>>>>>> 29b576efc4537ab9175b71b7917e6b9508e38626
 
 # Flask stuff:
 instance/
@@ -111,13 +91,11 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
-<<<<<<< HEAD
 # pyenv
 .python-version
 
 # celery beat schedule file
 celerybeat-schedule
-=======
 # IPython
 profile_default/
 ipython_config.py
@@ -138,7 +116,6 @@ __pypackages__/
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
->>>>>>> 29b576efc4537ab9175b71b7917e6b9508e38626
 
 # SageMath parsed files
 *.sage.py
@@ -164,11 +141,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-<<<<<<< HEAD
 =======
 .dmypy.json
 dmypy.json
 
 # Pyre type checker
 .pyre/
->>>>>>> 29b576efc4537ab9175b71b7917e6b9508e38626
