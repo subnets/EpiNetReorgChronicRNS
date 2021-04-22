@@ -15,7 +15,7 @@ Edit the `notebooks/paths.json` file to point to directories containing raw data
 Run the `notebooks/batch_preproc.sh` script to execute the data processing pipeline. In practice, this pipeline will take several hours to days to run depending on the number of data clips in the database. To manually run this pipeline, simply run each `python <execfile.py>` command separately. When run in full, the following steps will be executed:
 
 1. Detection of stimulation periods.
-2. Line Length feature extraction (mean and threshold).
+2. Line Length feature extraction.
 3. Alternate spike extraction methods.
 4. Wavelet convolution and functional connectivity estimation.
 5. Non-Negative Tensor Factorization of functional connectivity data. 
