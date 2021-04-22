@@ -10,6 +10,7 @@ import glob
 import os
 import sys
 import json
+from tqdm import tqdm
 import datetime 
 from datetime import datetime
 import h5py
