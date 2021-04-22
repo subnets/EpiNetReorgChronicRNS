@@ -14,7 +14,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 exec(open('__init__.py').read())
-rs_path = path['RSRCH'](5)
+rs_path = path['RSRCH'](1)
 df_meta = path['CORE']['RNS']['METADATA']
 df_catalog = path['CORE']['RNS']['CATALOG']
 df_catalog['Timestamp'] = pd.to_datetime(
@@ -140,11 +140,9 @@ def resample_SPK(np_code, remove_blank=False, trigger='Scheduled'):
 if __name__ == '__main__':
 
     from multiprocessing import Pool
-    pp = Pool(30)
+    pp = Pool(1)
 
-    try:
-        task_id = int(os.environ['SGE_TASK_ID']) - 1
-    except:
-        pass
-    #output = pp.map(npspkdetect_extraction, range(len(df_catalog)))
+    print('--- Extracting Spikes using Desai et al. (2019) Method ---')
+    output = pp.map(npspkdetect_extraction, range(len(df_catalog)))
+    print('--- Summarizing Spikes Detected by Desai et al. (2019) Method ---')
     output = pp.map(pre_trigger_NPSPKDETECT_FEAT, np.array(df_catalog['NP_code'].unique()))

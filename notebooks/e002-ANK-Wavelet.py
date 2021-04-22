@@ -443,22 +443,9 @@ def resample_PLV_LOC(np_code, remove_blank=False, trigger='Scheduled', despiked=
 
 if __name__ == '__main__':
     from multiprocessing import Pool
+    pp = Pool(1)
 
-    """
-    try:
-        task_id = int(os.environ['SGE_TASK_ID']) - 1
-    except:
-        task_id = int(sys.argv[1])
-    """
-    pool = Pool(10)
-    pool.map(pre_trigger_PLV_despiked, list(df_catalog['NP_code'].unique()))
-
-    """
-    #wavelet_extraction(int(task_id))
-    #pre_trigger_PLV(df_catalog['NP_code'].unique()[task_id])
-
-    for task_id in range(len(df_catalog)):
-        print(task_id)
-        resave_wavelet_extraction_as_mat(task_id, trigger_name='Scheduled')
-        resave_wavelet_extraction_as_mat(task_id, trigger_name='Long_Episode')
-    """
+    print('--- Convolving Morlet Wavelet family ---')
+    output = pp.map(wavelet_extraction, range(len(df_catalog)))
+    print('--- Calculating PLV from Wavelet coefficients ---')
+    output = pp.map(pre_trigger_PLV, list(df_catalog['NP_code'].unique()))

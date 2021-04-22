@@ -15,13 +15,13 @@ warnings.filterwarnings('ignore')
 
 exec(open('__init__.py').read())
 rs_path = path['RSRCH'](4)
-rs1_path = path['RSRCH'](1)
+rs0_path = path['RSRCH'](0)
 rs2_path = path['RSRCH'](2)
 df_meta = path['CORE']['RNS']['METADATA']
 df_catalog = path['CORE']['RNS']['CATALOG']
 df_catalog['Timestamp'] = pd.to_datetime(df_catalog['Timestamp'], errors='coerce')
 df_catalog = df_catalog.dropna()
-df_blnk = pd.read_pickle('{}/Summary.Stim_Detect.pkl'.format(rs1_path))
+df_blnk = pd.read_pickle('{}/Summary.Stim_Detect.pkl'.format(rs0_path))
 df_npref = path['CORE']['RNS']['NP_Ref']
 df_nppc = path['CORE']['RNS']['NP_PC']
 
@@ -35,7 +35,7 @@ e000_stim = importlib.import_module('e000-ANK-Stim_Blank')
 e002_WV = importlib.import_module('e002-ANK-Wavelet')
 PRE_TRIGGER_DUR = 30
 
-NTF_PARAM = {'RANK': np.array([2,3]), #np.arange(1, 4, 1),
+NTF_PARAM = {'RANK': np.arange(2, 7,1),
              'NTF_dict': {'beta': 1,
                           'init': 'rand'},
              'FIT_dict': {'method': 'β-Divergence',
@@ -167,14 +167,17 @@ def get_optimal_rank(df_xval):
 
 
 def run_full(np_id):
-    out_name = ntf_name(np_id, 'FULLDespiked')
+    out_name = ntf_name(np_id, 'FULL')
 
     out_path = '{}.pkl'.format(out_name)
     log_path = '{}.log'.format(out_name) 
     #if os.path.exists(out_path):
     #    return None
 
-    tensor = load_tensor(np_id)
+    tensor = load_tensor(
+            np_id,
+            func_name=e002_WV.plv_pretrigger_name,
+            trigger='Scheduled')
     n_obs = len(tensor['signal'])
 
     FULL_DICT = {'RANK': [],
@@ -314,15 +317,7 @@ def resample_NTF(np_code, remove_blank=False, metric='COST_TRAIN', rank=3, despi
 
 if __name__ == '__main__':
     from multiprocessing import Pool
-    pp = Pool(30)
+    pp = Pool(1)
 
-    try:
-        task_id = int(os.environ['SGE_TASK_ID']) - 1
-    except:
-        pass
-    #np_code = np.array(df_catalog['NP_code'].unique())[task_id]
-    #run_xval(np_code)
-    #run_full(np_code)
-
-    #output = pp.map(run_xval, np.array(df_catalog['NP_code'].unique()))
+    print('--- Calculate Network Factors from PLV data ---')
     output = pp.map(run_full, np.array(df_catalog['NP_code'].unique()))

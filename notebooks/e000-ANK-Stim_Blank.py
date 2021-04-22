@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 exec(open('__init__.py').read())
-rs_path = path['RSRCH'](1)
+rs_path = path['RSRCH'](0)
 df_meta = path['CORE']['RNS']['METADATA']
 df_catalog = path['CORE']['RNS']['CATALOG']
 df_catalog['Timestamp'] = pd.to_datetime(df_catalog['Timestamp'], errors='coerce')
@@ -26,9 +26,7 @@ def blank_detect():
                      'StimOnset_ix': [],
                      'StimOffset_ix': []}
 
-    for ix in range(len(df_catalog)):
-        print('{} of {}'.format(ix+1, len(df_catalog)))
-
+    for ix in tqdm(range(len(df_catalog))):
         sel = df_catalog.iloc[[ix]]
 
         detect_dict = None
@@ -57,15 +55,5 @@ def load_stim_detect(np_code):
 
 
 if __name__ == '__main__':
-    import os
-
-    os.environ['OMP_NUM_THREADS'] = '1'
-    os.environ['MKL_NUM_THREADS'] = '1'
-    os.environ['OPENBLAS_NUM_THREADS'] = '1'
-
-    try:
-        task_id = int(os.environ['SGE_TASK_ID']) - 1
-    except:
-        task_id = int(sys.argv[1])
-
+    print(' --- Detecting Signal Blanking Due to Stim ---')
     blank_detect()

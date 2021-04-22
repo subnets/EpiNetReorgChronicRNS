@@ -227,38 +227,12 @@ def resample_LL(np_code, remove_blank=False, trigger='Scheduled'):
 
 if __name__ == '__main__':
 
-    """
-    try:
-        task_id = int(os.environ['SGE_TASK_ID']) - 1
-    except:
-        task_id = int(sys.argv[1])
-
-    N_BUFFER = 16
-
-    N_CAT = len(df_catalog)
-    IX_PER_BUFFER = int(np.ceil(N_CAT/N_BUFFER))
-
-    for cat_ix in np.arange(
-            task_id*IX_PER_BUFFER,
-            (task_id+1)*IX_PER_BUFFER):
-        linelength_extraction(int(cat_ix))
-
-    NP = df_catalog['NP_code'].unique()
-    N_CAT = len(NP)
-    IX_PER_BUFFER = int(np.ceil(N_CAT/N_BUFFER))
-
-    for cat_ix in np.arange(
-            task_id*IX_PER_BUFFER,
-            (task_id+1)*IX_PER_BUFFER):
-        pre_trigger_LL_FEAT(NP[cat_ix])
-    """
-
     from multiprocessing import Pool
-    pp = Pool(30)
+    pp = Pool(1)
 
-    try:
-        task_id = int(os.environ['SGE_TASK_ID']) - 1
-    except:
-        pass
-    #output = pp.map(spiketimes_extraction, range(len(df_catalog)))
+    print('--- Extracting Line-Length ---')
+    output = pp.map(linelength_extraction, range(len(df_catalog)))
+    print('--- Extracting Line-Length Thresholds ---')
+    output = pp.map(spiketimes_extraction, range(len(df_catalog)))
+    print('--- Collecting Line-Length Features ---')
     output = pp.map(pre_trigger_LL_FEAT, np.array(df_catalog['NP_code'].unique()))
