@@ -3,7 +3,7 @@ Code and analysis notebooks to accompany Khambhati, Shafi, Rao and Chang "Long-t
 
 
 ## Installation
-We recommend creating a new virtual environment using `Anaconda` or `virtualenv` before proceeding with this installation.
+We recommend creating a new virtual environment using `Anaconda` or `virtualenv` before proceeding with this installation. This tool was built with Python 3.7.
 ```
 git clone https://github.com/subnets/EpiNetReorgChronicRNS.git
 cd EpiNetReorgChronicRNS
