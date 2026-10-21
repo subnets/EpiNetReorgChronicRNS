@@ -1,5 +1,5 @@
 backcall==0.2.0
-certifi==2020.6.20
+certifi==2026.10.19
 cycler==0.10.0
 decorator==4.4.2
 h5py==2.10.0
